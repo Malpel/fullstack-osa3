@@ -1,8 +1,15 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
 
 app.use(bodyParser.json())
+
+morgan.token('postContent', (tokens) => {   
+    return JSON.stringify(tokens.body)
+}) 
+
+app.use(morgan(':method :url :status :res[content-length] :response-time ms :postContent'))
 
 let persons = [
     {
@@ -58,7 +65,7 @@ const generateId = () => {
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
-    console.log(body)
+    /* console.log(body) */
 
     const exists = persons.find(person => person.name === body.name)
 
@@ -78,7 +85,7 @@ app.post('/api/persons', (req, res) => {
         id: generateId()
     }
 
-    console.log(person)
+    /* console.log(person) */
 
     persons = persons.concat(person)
     res.json(person)
