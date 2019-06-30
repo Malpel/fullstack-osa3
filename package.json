@@ -1,0 +1,27 @@
+{
+  "name": "fullstack-osa3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malpel/fullstack-osa3.git"
+  },
+  "author": "Malpel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Malpel/fullstack-osa3/issues"
+  },
+  "homepage": "https://github.com/Malpel/fullstack-osa3#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
