@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/api/persons/4
+DELETE https://radiant-ocean-57566.herokuapp.com/api/persons/4

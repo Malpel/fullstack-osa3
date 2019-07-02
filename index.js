@@ -6,11 +6,11 @@ const morgan = require('morgan')
 app.use(express.static('build'))
 app.use(bodyParser.json())
 
-morgan.token('postContent', (tokens) => {   
+morgan.token('post-content', (tokens) => {   
     return JSON.stringify(tokens.body)
 }) 
 
-app.use(morgan(':method :url :status :res[content-length] :response-time ms :postContent'))
+app.use(morgan(':method :url :status :res[content-length] :response-time ms :post-content'))
 
 let persons = [
     {
