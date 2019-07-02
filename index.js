@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
+app.use(express.static('build'))
 app.use(bodyParser.json())
 
 morgan.token('postContent', (tokens) => {   
@@ -97,7 +98,7 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end()
 })
 
-const port = 3001
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
 })
