@@ -1,8 +1,7 @@
-POST https://radiant-ocean-57566.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
     "name": "Arto Hellas",
-    "number": "050-5523187",
-    "id": "404"
+    "number": "050-5523187"
 }

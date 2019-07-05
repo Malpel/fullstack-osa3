@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.get('/api/persons', (req, res) => {
     Person.find({}).then(persons => {
         res.json(persons.map(person => person.toJSON(), personAmount = persons.length))
-        
+
     })
 })
 
@@ -45,25 +45,14 @@ app.get('/api/persons/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
-const generateId = () => {
-    const id = Math.floor(Math.random() * ((1001 - 5) + 1) + 5)
-    return id
-}
-
-app.post('/api/persons', (req, res) => {
+app.post('/api/persons', (req, res, next) => {
     const body = req.body
-
-    //const exists = persons.find(person => person.name === body.name)
 
     if (!body.name || !body.number) {
         return res.status(400).json({
             error: 'content missing'
         })
-    } /* else if (exists) {
-        return res.status(400).json({
-            error: 'already exists! name must be unique'
-        })
-    } */
+    }
 
     const person = new Person({
         name: body.name,
@@ -75,29 +64,30 @@ app.post('/api/persons', (req, res) => {
     person.save().then(savedPerson => {
         res.json(savedPerson.toJSON())
     })
+        .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
-    const body = request.body
+    const body = req.body
 
     const person = {
         name: body.name,
         number: body.number,
     }
 
-    Person.findByIdAndUpdate(req.params.id, person, { new:true })
-    .then(updatedPerson => {
-        res.json(updatedPerson.toJSON())
-    })
-    .catch(error => next(error))
+    Person.findByIdAndUpdate(req.params.id, person, { new: true })
+        .then(updatedPerson => {
+            res.json(updatedPerson.toJSON())
+        })
+        .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (req, res) => {
     Person.findByIdAndRemove(req.params.id)
-    .then(result => {
-        res.status(204).end()
-    })
-    .catch(error => next(error))
+        .then(result => {
+            res.status(204).end()
+        })
+        .catch(error => next(error))
 })
 
 const unknownEndpoint = (req, res) => {
@@ -111,6 +101,8 @@ const errorHandler = (error, req, res, next) => {
 
     if (error.name === 'CastError' && error.kind == 'ObjectID') {
         return res.status(400).send({ error: 'malformed id' })
+    } else if (error.name === 'ValidationError') {
+        return res.status(400).json({ error: error.message })
     }
 }
 
