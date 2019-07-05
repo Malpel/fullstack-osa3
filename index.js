@@ -82,7 +82,7 @@ app.put('/api/persons/:id', (req, res, next) => {
         .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (req, res) => {
+app.delete('/api/persons/:id', (req, res, next) => {
     Person.findByIdAndRemove(req.params.id)
         .then(result => {
             res.status(204).end()
@@ -104,6 +104,8 @@ const errorHandler = (error, req, res, next) => {
     } else if (error.name === 'ValidationError') {
         return res.status(400).json({ error: error.message })
     }
+
+    next(error)
 }
 
 app.use(errorHandler)

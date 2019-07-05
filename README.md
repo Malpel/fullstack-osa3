@@ -1,3 +1,5 @@
-# fullstack-osa3
+# Fullstack 2019
 
-[Heroku](https://radiant-ocean-57566.herokuapp.com/)
+## Osa 3: Palvelimen ohjelmointi NodeJS:n Express-kirjastolla
+
+Sovellus [Herokussa](https://radiant-ocean-57566.herokuapp.com/)
